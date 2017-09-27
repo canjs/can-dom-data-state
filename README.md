@@ -5,7 +5,7 @@
 [![npm version](https://badge.fury.io/js/can-dom-data-state.svg)](https://www.npmjs.com/package/can-dom-data-state)
 [![Travis build status](https://travis-ci.org/canjs/can-dom-data-state.svg?branch=master)](https://travis-ci.org/canjs/can-dom-data-state)
 
-A key/value store useful for associating with DOM Nodes.
+A key/value store useful for associating data with DOM Nodes.
 
 ## Documentation
 
