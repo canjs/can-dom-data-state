@@ -1,5 +1,7 @@
 # can-dom-data-state
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/canjs/can-dom-data-state.svg)](https://greenkeeper.io/)
+
 [![Join the chat at https://gitter.im/canjs/canjs](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/canjs/canjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/canjs/can-dom-data-state/blob/master/LICENSE)
 [![npm version](https://badge.fury.io/js/can-dom-data-state.svg)](https://www.npmjs.com/package/can-dom-data-state)
