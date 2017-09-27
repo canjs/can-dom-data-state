@@ -1,9 +1,8 @@
 'use strict';
 var namespace = require('can-namespace');
+var CID = require("can-cid");
 
 var data = {};
-var expando = "can" + new Date();
-var uuid = 0;
 
 var isEmptyObject = function(obj){
 	/* jshint -W098 */
@@ -17,7 +16,7 @@ var isEmptyObject = function(obj){
 // returns true if this is the first data for this element
 // so that caller can track number of elements with data set
 var setData = function(name, value) {
-	var id = this[expando] || (this[expando] = ++uuid),
+	var id = CID(this),
 		store = data[id],
 		newStore = false;
 
@@ -35,7 +34,7 @@ var setData = function(name, value) {
 // delete this node's `data`
 // returns true if the node was deleted.
 var deleteNode = function() {
-	var id = this[expando];
+	var id = CID.get(this);
 	var nodeDeleted = false;
 	if(id && data[id]) {
 		nodeDeleted = true;
@@ -52,17 +51,19 @@ var domDataState = {
 	_data: data,
 
 	getCid: function() {
-		return this[expando];
+		// TODO log warning! to use can-cid directly
+		return CID.get(this);
 	},
 
 	cid: function(){
-		return this[expando] || (this[expando] = ++uuid);
+		// TODO log warning!
+		return CID(this);
 	},
 
-	expando: expando,
+	expando: CID.domExpando,
 
 	get: function(key) {
-		var id = this[expando],
+		var id = CID.get(this),
 			store = id && data[id];
 		return key === undefined ? store || setData(this) : store && store[key];
 	},
@@ -70,7 +71,7 @@ var domDataState = {
 	set: setData,
 
 	clean: function(prop) {
-		var id = this[expando];
+		var id = CID.get(this);
 		var itemData = data[id];
 		if (itemData && itemData[prop]) {
 			delete itemData[prop];
