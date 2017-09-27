@@ -1,10 +1,17 @@
 'use strict';
-
-var isEmptyObject = require("../../js/is-empty-object/is-empty-object");
+var namespace = require('can-namespace');
 
 var data = {};
 var expando = "can" + new Date();
 var uuid = 0;
+
+var isEmptyObject = function(obj){
+	/* jshint -W098 */
+	for(var prop in obj) {
+		return false;
+	}
+	return true;
+};
 
 // set data for an element
 // returns true if this is the first data for this element
@@ -41,7 +48,7 @@ var deleteNode = function() {
  * Core of domData that does not depend on mutationDocument
  * This is separated in order to prevent circular dependencies
  */
-module.exports = {
+var domDataState = {
 	_data: data,
 
 	getCid: function() {
@@ -75,3 +82,9 @@ module.exports = {
 
 	delete: deleteNode
 };
+
+if (namespace.domDataState) {
+	throw new Error("You can't have two versions of can-dom-data-state, check your dependencies");
+} else {
+	module.exports = namespace.domDataState = domDataState;
+}
