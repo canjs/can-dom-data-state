@@ -7,7 +7,7 @@ var bar = {};
 QUinit.module('can-compute-memoize', {
 	beforeEach: function () {
         domDataState.clean();
-	}
+    }
 });
 
 QUinit.test('should set and get data', function () {
