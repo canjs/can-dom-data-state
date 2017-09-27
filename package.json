@@ -1,6 +1,6 @@
 {
   "name": "can-dom-data-state",
-  "version": "0.0.0-pre.1",
+  "version": "0.0.0",
   "description": "A key/value store useful for associating with DOM Nodes.",
   "homepage": "https://canjs.com/",
   "repository": {
