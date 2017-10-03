@@ -4,7 +4,7 @@ var domDataState = require('./can-dom-data-state');
 var foo = {};
 var bar = {};
 
-QUinit.module('can-compute-memoize', {
+QUinit.module('can-dom-data-state', {
 	beforeEach: function () {
         domDataState.clean();
 	}
