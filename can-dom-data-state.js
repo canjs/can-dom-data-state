@@ -12,23 +12,13 @@ var isEmptyObject = function(obj){
 	return true;
 };
 
-// set data for an element
-// returns true if this is the first data for this element
-// so that caller can track number of elements with data set
 var setData = function(name, value) {
-	var id = CID(this),
-		store = data[id],
-		newStore = false;
-
-	if (!data[id]) {
-		newStore = true;
-		store = data[id] = {};
-	}
-
+	var id = CID(this);
+	var store = data[id] || (data[id] = {});
 	if (name !== undefined) {
 		store[name] = value;
 	}
-	return newStore;
+	return store;
 };
 
 // delete this node's `data`
@@ -65,7 +55,7 @@ var domDataState = {
 	get: function(key) {
 		var id = CID.get(this),
 			store = id && data[id];
-		return key === undefined ? store || setData(this) : store && store[key];
+		return key === undefined ? store : store && store[key];
 	},
 
 	set: setData,
