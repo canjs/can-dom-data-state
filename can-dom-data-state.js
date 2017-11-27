@@ -1,6 +1,7 @@
 'use strict';
 var namespace = require('can-namespace');
 var CID = require("can-cid");
+var DOMMutate = require("can-dom-mutate");
 
 var data = {};
 
@@ -17,6 +18,10 @@ var setData = function(name, value) {
 	var store = data[id] || (data[id] = {});
 	if (name !== undefined) {
 		store[name] = value;
+		// remove any data when this is removed from DOM
+		DOMMutate.onNodeRemoval(this, function(ev){
+			deleteNode.call(ev.target);
+		})
 	}
 	return store;
 };

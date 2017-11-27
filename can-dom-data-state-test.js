@@ -55,3 +55,17 @@ unit.test('should delete all data of node', function () {
 	unit.equal(domDataState.get('bar'), undefined);
 	unit.equal(domDataState._data['1'], undefined);
 });
+
+unit.test('should delete all data of node when DOM element is removed from document (async)', function (assert) {
+	var done = assert.async();
+	var div = document.createElement('div');
+	document.body.append(div);
+	domDataState.set.call(div, 'foo', foo);
+	div.remove();
+	// removal of data is async, so test must also be async
+	setTimeout(function(){
+		assert.equal(domDataState.get.call(div), undefined);
+		done();
+	}, 10); // ???: Why must this be 2 or more ms for this test to pass?
+
+});
