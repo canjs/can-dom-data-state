@@ -1,10 +1,10 @@
 var unit = require('steal-qunit');
-var domDataState = require('./can-dom-data-state');
+var domDataState = require('../can-dom-data-state');
 
 var foo = {};
 var bar = {};
 
-unit.module('can-dom-data-state', {
+unit.module('can-dom-data-state: storage', {
 	beforeEach: function () {
 		domDataState.delete();
 	}
@@ -22,6 +22,7 @@ unit.test('set() should return the store', function () {
 		{hammer: 'time'},
 		'should set the store and return it'
 	);
+	domDataState.delete.call(foo);
 });
 
 unit.test('get() should return the whole store', function () {
