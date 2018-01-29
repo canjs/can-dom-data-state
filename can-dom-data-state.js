@@ -1,8 +1,7 @@
 'use strict';
 var namespace = require('can-namespace');
+var domMutate = require('can-dom-mutate');
 var CID = require("can-cid");
-
-var data = {};
 
 var isEmptyObject = function(obj){
 	/* jshint -W098 */
@@ -12,14 +11,8 @@ var isEmptyObject = function(obj){
 	return true;
 };
 
-var setData = function(name, value) {
-	var id = CID(this);
-	var store = data[id] || (data[id] = {});
-	if (name !== undefined) {
-		store[name] = value;
-	}
-	return store;
-};
+var data = {};
+var removedDisposalMap = {};
 
 // delete this node's `data`
 // returns true if the node was deleted.
@@ -30,7 +23,31 @@ var deleteNode = function() {
 		nodeDeleted = true;
 		delete data[id];
 	}
+	if (removedDisposalMap[id]) {
+		removedDisposalMap[id]();
+		delete removedDisposalMap[id];
+	}
 	return nodeDeleted;
+};
+
+var setData = function(name, value) {
+	var id = CID(this);
+	var store = data[id] || (data[id] = {});
+	if (name !== undefined) {
+		store[name] = value;
+		var isNode = !!(this && typeof this.nodeType === 'number');
+		if (isNode && !removedDisposalMap[id]) {
+			var target = this;
+			removedDisposalMap[id] = domMutate.onNodeRemoval(target, function () {
+				if (!target.ownerDocument.contains(target)) {
+					setTimeout(function () {
+						deleteNode(target);
+					}, 13);
+				}
+			});
+		}
+	}
+	return store;
 };
 
 /*
@@ -39,6 +56,7 @@ var deleteNode = function() {
  */
 var domDataState = {
 	_data: data,
+	_removalDisposalMap: removedDisposalMap,
 
 	getCid: function() {
 		// TODO log warning! to use can-cid directly
