@@ -25,7 +25,7 @@
     "develop": "done-serve --static --develop --port 8080",
     "detect-cycle": "detect-cyclic-packages --ignore done-serve"
   },
-  "main": "dist/cjs/can-dom-data-state",
+  "main": "can-dom-data-state.js",
   "keywords": [
     "canjs",
     "data",
