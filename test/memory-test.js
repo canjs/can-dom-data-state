@@ -9,6 +9,7 @@ unit.test('should clean up data when a node is removed from the document', funct
 	var done = assert.async();
 	var node = document.createElement('div');
 	var slot = document.getElementById('qunit-fixture');
+
 	domDataState.set.call(node, 'foo', 'bar');
 
 	slot.appendChild(node);
@@ -16,7 +17,8 @@ unit.test('should clean up data when a node is removed from the document', funct
 	var dispose = domMutate.onNodeRemoval(node, function () {
 		dispose();
 		setTimeout(function () {
-			assert.equal(domDataState.get(node), undefined, 'Data should be empty');
+			assert.equal(domDataState.get.call(node), undefined, 'Data should be empty');
+			assert.deepEqual(domDataState._removalDisposalMap, {}, 'should have no disposals');
 
 			domDataState.delete.call(node);
 			done();
