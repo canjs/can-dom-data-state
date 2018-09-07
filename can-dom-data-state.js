@@ -39,7 +39,7 @@ var setData = function(name, value) {
 		if (isNode && !removedDisposalMap[id]) {
 			var target = this;
 			removedDisposalMap[id] = domMutate.onNodeRemoval(target, function () {
-				if (!target.ownerDocument.contains(target)) {
+				if (!target.ownerDocument.documentElement.contains(target)) {
 					setTimeout(function () {
 						deleteNode.call(target);
 					}, 13);
