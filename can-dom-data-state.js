@@ -2,6 +2,7 @@
 var namespace = require('can-namespace');
 var CID = require("can-cid");
 var domData = require("can-dom-data");
+var canDev = require("can-log/dev/dev");
 
 var slice = [].slice;
 function unwrap(obj, key) {
@@ -38,3 +39,9 @@ if (namespace.domDataState) {
 } else {
 	module.exports = namespace.domDataState = domDataState;
 }
+
+//!steal-remove-start
+if (process.env.NODE_ENV !== 'production') {
+	canDev.warn('can-dom-data-state is deprecated; please use can-dom-data instead: https://github.com/canjs/can-dom-data');
+}
+//!steal-remove-end
