@@ -42,7 +42,7 @@ unit.test('should delete node', function () {
 	unit.equal(domDataState.get('foo'), foo);
 	unit.equal(domDataState.get('bar'), bar);
 	domDataState.delete();
-	unit.equal(domDataState._data['1'], undefined);
+	unit.equal(domDataState._data.get(domDataState), undefined);
 });
 
 unit.test('should delete all data of node', function () {
@@ -54,5 +54,5 @@ unit.test('should delete all data of node', function () {
 	domDataState.clean('bar');
 	unit.equal(domDataState.get('foo'), undefined);
 	unit.equal(domDataState.get('bar'), undefined);
-	unit.equal(domDataState._data['1'], undefined);
+	unit.equal(domDataState._data.get(domDataState), undefined);
 });
