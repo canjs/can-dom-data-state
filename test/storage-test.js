@@ -1,23 +1,23 @@
-var unit = require('steal-qunit');
+var QUnit = require('steal-qunit');
 var domDataState = require('../can-dom-data-state');
 
 var foo = {};
 var bar = {};
 
-unit.module('can-dom-data-state: storage', {
+QUnit.module('can-dom-data-state: storage', {
 	beforeEach: function () {
 		domDataState.delete();
 	}
 });
 
-unit.test('should set and get data', function () {
+QUnit.test('should set and get data', function (assert) {
 	domDataState.set('foo', foo);
-	unit.equal(domDataState.get('foo'), foo);
+	assert.equal(domDataState.get('foo'), foo);
 });
 
-unit.test('set() should return the store', function () {
+QUnit.test('set() should return the store', function (assert) {
 	var foo = {};
-	unit.deepEqual(
+	assert.deepEqual(
 		domDataState.set.call(foo, 'hammer', 'time'),
 		{hammer: 'time'},
 		'should set the store and return it'
@@ -25,34 +25,34 @@ unit.test('set() should return the store', function () {
 	domDataState.delete.call(foo);
 });
 
-unit.test('get() should return the whole store', function () {
+QUnit.test('get() should return the whole store', function (assert) {
 	var foo = {};
-	unit.equal(domDataState.get.call(foo), undefined, 'should have no store initially');
+	assert.equal(domDataState.get.call(foo), undefined, 'should have no store initially');
 
 	domDataState.set.call(foo, 'bar', 'baz');
-	unit.deepEqual(domDataState.get.call(foo), {bar: 'baz'}, 'should return set store');
+	assert.deepEqual(domDataState.get.call(foo), {bar: 'baz'}, 'should return set store');
 
 	domDataState.delete.call(foo);
-	unit.equal(domDataState.get.call(foo), undefined, 'should have no store finally');
+	assert.equal(domDataState.get.call(foo), undefined, 'should have no store finally');
 });
 
-unit.test('should delete node', function () {
+QUnit.test('should delete node', function (assert) {
 	domDataState.set('foo', foo);
 	domDataState.set('bar', bar);
-	unit.equal(domDataState.get('foo'), foo);
-	unit.equal(domDataState.get('bar'), bar);
+	assert.equal(domDataState.get('foo'), foo);
+	assert.equal(domDataState.get('bar'), bar);
 	domDataState.delete();
-	unit.equal(domDataState._data.get(domDataState), undefined);
+	assert.equal(domDataState._data.get(domDataState), undefined);
 });
 
-unit.test('should delete all data of node', function () {
+QUnit.test('should delete all data of node', function (assert) {
 	domDataState.set('foo', foo);
 	domDataState.set('bar', bar);
-	unit.equal(domDataState.get('foo'), foo);
-	unit.equal(domDataState.get('bar'), bar);
+	assert.equal(domDataState.get('foo'), foo);
+	assert.equal(domDataState.get('bar'), bar);
 	domDataState.clean('foo');
 	domDataState.clean('bar');
-	unit.equal(domDataState.get('foo'), undefined);
-	unit.equal(domDataState.get('bar'), undefined);
-	unit.equal(domDataState._data.get(domDataState), undefined);
+	assert.equal(domDataState.get('foo'), undefined);
+	assert.equal(domDataState.get('bar'), undefined);
+	assert.equal(domDataState._data.get(domDataState), undefined);
 });
