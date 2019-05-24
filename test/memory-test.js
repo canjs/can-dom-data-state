@@ -1,12 +1,12 @@
 var cid = require('can-cid');
-var unit = require('steal-qunit');
+var QUnit = require('steal-qunit');
 var domDataState = require('../can-dom-data-state');
 var domMutate = require('can-dom-mutate');
 var globals = require('can-globals');
 
-unit.module('can-dom-data-state: memory');
+QUnit.module('can-dom-data-state: memory');
 
-unit.test('works if the documentElement is removed', function(assert) {
+QUnit.test('works if the documentElement is removed', function(assert) {
 	var done = assert.async();
 
 	var doc = document.implementation.createHTMLDocument("Test");
