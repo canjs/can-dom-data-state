@@ -44,16 +44,12 @@
   "dependencies": {
     "can-cid": "^1.1.0",
     "can-dom-data": "^1.0.1",
-    "can-dom-mutate": "^1.0.0",
     "can-log": "^1.0.0",
     "can-namespace": "^1.0.0"
   },
   "devDependencies": {
     "can-globals": "^1.2.0",
     "detect-cyclic-packages": "^1.1.0",
-    "done-serve": "^3.0.0",
-    "donejs-cli": "^3.0.0",
-    "generator-donejs": "^3.0.0",
     "jshint": "^2.9.1",
     "steal": "^1.5.13",
     "steal-qunit": "^2.0.0",
